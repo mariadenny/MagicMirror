@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Magic Mirror</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Mirror</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="intro">
-  <div class="overlay">
-    <h1 class="title">Sree Mrudu</h1>
-    <p class="ready">Are you ready?</p>
-  </div>
+    <div id="background"></div>
+    
+    <div class="overlay">
+        <h1 class="title">HELLO GUYS</h1>
+        <p class="ready">Are you ready?</p>
+    </div>
+
+    <!-- Mirror mode (hidden by default) -->
+    <div class="mirror-frame" style="display: none;">
+        <video id="video" autoplay muted></video>
+    </div>
+
+    <!-- Troll mode (hidden by default) -->
+    <div class="troll-content" style="display: none;">
+        <div class="meter-label">MASS METER</div>
+        <div class="meter-bar">
+            <div class="fill" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

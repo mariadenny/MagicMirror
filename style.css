@@ -1,104 +1,323 @@
+/* Custom Font Declarations */
 @font-face {
-  font-family: 'BaseNeue';
-  src: url('fonts/BaseNeueTrial.ttf');
+    font-family: 'BaseNeue';
+    src: url('fonts/BaseNeueTrial.ttf') format('truetype');
+    font-display: swap;
 }
 
 @font-face {
-  font-family: 'GamePaused';
-  src: url('fonts/GamePaused.ttf');
+    font-family: 'AwesomeSerif';
+    src: url('fonts/AwesomeSerifItalic-LightTall.otf') format('opentype');
+    font-display: swap;
 }
 
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'BaseNeue', 'Arial', sans-serif;
+    background: #ffe600; /* Fallback black background */
+}
+
+/* Background Styles */
+#background {
+    position: fixed;
+    top: -20%;
+    left: -20%;
+    width: 140vw;
+    height: 140vh;
+    /* Multiple fallback paths for the background image */
+    background-image: url('images/2.png'), url('./images/2.png'), url('2.png'), url('./2.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    animation: rotateBackground 20s linear infinite;
+    z-index: -1;
+    /* Fallback gradient background */
+    background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+    background-size: 400% 400%;
+}
+
+/* Background rotation animation with gradient fallback */
+@keyframes rotateBackground {
+    0% {
+        transform: rotate(0deg) scale(1.2);
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        transform: rotate(360deg) scale(1.2);
+        background-position: 0% 50%;
+    }
+}
+
+/* Intro Screen Styles */
 body.intro {
-  background-image: url('images/intro-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-family: 'BaseNeue', sans-serif;
-  animation: scrollLeft 3s forwards;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+body.intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100vw);
-  }
+.overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    text-align: center;
+    animation: moveText 15s ease-in-out infinite;
+}
+
+/* Text movement animation */
+@keyframes moveText {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    25% {
+        transform: translateX(50px) translateY(-30px);
+    }
+    50% {
+        transform: translateX(-30px) translateY(40px);
+    }
+    75% {
+        transform: translateX(-50px) translateY(-20px);
+    }
 }
 
 .title {
-  font-size: 60px;
-  color: white;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px black;
+    font-family: 'BaseNeue', 'Arial', sans-serif;
+    font-size: clamp(80px, 15vw, 200px);
+    color: rgb(39, 8, 8);
+    margin-bottom: 20px;
+    text-shadow: 
+        2px 2px 0px #000,
+        4px 4px 20px rgba(0,0,0,0.8),
+        0 0 30px rgba(255,255,255,0.3);
+    font-weight: bold;
+    letter-spacing: 3px;
+    animation: titleFloat 4s ease-in-out infinite;
+}
+
+/* Title floating animation */
+@keyframes titleFloat {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
 }
 
 .ready {
-  font-size: 32px;
-  color: #fff;
-  animation: blink 1s infinite;
+    font-family: 'AwesomeSerif', 'serif', sans-serif;
+    font-size: clamp(40px, 8vw, 100px);
+    color: #1b1515;
+    animation: blink 2s ease-in-out infinite;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
+    font-style: italic;
 }
 
+/* Blinking animation */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+    0%, 100% { 
+        opacity: 1; 
+        transform: translateY(0px);
+    }
+    50% { 
+        opacity: 0.3; 
+        transform: translateY(-5px);
+    }
 }
+
+/* Mirror Screen Styles */
 body.mirror {
-  background-image: url('images/mirror-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    background-image: url('images/2.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body.mirror #background {
+    background-image: url('images/2.jpg');
 }
 
 .mirror-frame {
-  width: 500px;
-  height: 600px;
-  border: 10px solid #fff;
-  box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
-  background: black;
-  position: relative;
+    width: min(500px, 90vw);
+    height: min(600px, 80vh);
+    border: 10px solid #fff;
+    box-shadow: 
+        0 0 50px rgba(255, 255, 255, 0.3),
+        inset 0 0 20px rgba(0,0,0,0.3);
+    background: black;
+    position: relative;
+    border-radius: 20px;
 }
 
 video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
 }
+
+/* Troll Screen Styles - Black Background */
 body.troll {
-  background: black;
-  color: white;
-  font-family: 'GamePaused', monospace;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  gap: 30px;
+    background: #000;
+    color: #fff;
+}
+
+body.troll #background {
+    background: #000;
+    background-image: none;
+    animation: none;
+}
+
+.troll-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 30px;
+    z-index: 10;
 }
 
 .meter-label {
-  font-size: 40px;
+    font-family: 'AwesomeSerif', 'serif', sans-serif;
+    font-size: clamp(30px, 6vw, 50px);
+    text-shadow: 0 0 20px #ff0000;
+    color: #fff;
+    font-style: italic;
+    letter-spacing: 2px;
+    animation: labelGlow 2s ease-in-out infinite;
+}
+
+/* Label glow animation */
+@keyframes labelGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px #ff0000;
+        color: #fff;
+    }
+    50% {
+        text-shadow: 0 0 40px #ff0000, 0 0 60px #ff0000;
+        color: #ffcccc;
+    }
 }
 
 .meter-bar {
-  width: 60%;
-  height: 30px;
-  background: gray;
-  border: 2px solid white;
-  position: relative;
+    width: min(60%, 400px);
+    height: 40px;
+    background: #333;
+    border: 3px solid #fff;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(255,255,255,0.3),
+        inset 0 0 20px rgba(0,0,0,0.5);
 }
 
 .meter-bar .fill {
-  background: red;
-  height: 100%;
-  transition: width 1s ease-in-out;
+    background: linear-gradient(90deg, #ff0000, #ff4400, #ff6600, #ff8800, #ffaa00);
+    height: 100%;
+    transition: width 3s ease-in-out;
+    border-radius: 17px;
+    animation: fillPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255,0,0,0.6);
+}
+
+/* Fill pulse animation */
+@keyframes fillPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(255,0,0,0.6);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(255,0,0,0.9), 0 0 60px rgba(255,0,0,0.6);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 60px;
+        letter-spacing: 2px;
+    }
+    
+    .ready {
+        font-size: 35px;
+    }
+    
+    .mirror-frame {
+        width: 95vw;
+        height: 75vh;
+        border: 5px solid #fff;
+    }
+    
+    .meter-label {
+        font-size: 35px;
+    }
+    
+    .meter-bar {
+        width: 80%;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 45px;
+        letter-spacing: 1px;
+    }
+    
+    .ready {
+        font-size: 25px;
+    }
+    
+    .meter-label {
+        font-size: 28px;
+    }
+    
+    .meter-bar {
+        width: 90%;
+        height: 30px;
+    }
+}
+
+/* Loading states and transitions */
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 20px;
+    z-index: 1000;
+    font-family: 'BaseNeue', 'Arial', sans-serif;
+}
+
+/* Smooth transitions between modes */
+body {
+    transition: background-color 1s ease-in-out;
+}
+
+#background {
+    transition: background-image 1s ease-in-out, background-color 1s ease-in-out;
 }
