@@ -1,2 +1,2 @@
 # MagicMirror
-this is an app which uses facial recognistion and give personalised outputs
+this is an app which uses facial recognition and give personalised outputs
