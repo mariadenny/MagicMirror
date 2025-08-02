@@ -3,7 +3,7 @@ function sendImageToServer(blob) {
     const formData = new FormData();
     formData.append('image', blob, 'webcam.jpg');
 
-    fetch('/predict', {
+    fetch('https://magicmirror-cnf3.onrender.com/predict', {
         method: 'POST',
         body: formData
     })
