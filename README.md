@@ -85,6 +85,16 @@ Project Documentation
 
 Screenshots
 
+![Screenshot1](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093726.png) 
+
+![Screenshot2](https://github.com/mariadenny/MagicMirror/edit/master/README.md) 
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/edit/master/README.md) 
+
+
+
+
+
  Friend identified – UI transforms with a warm welcome!
 
  Default boring screen when it's not your friend 😒
@@ -100,7 +110,7 @@ Diagrams
 
 Project Demo
 
-🎥 Video Demo: [Paste YouTube or Drive Link Here]
+🎥 Video Demo: [https://drive.google.com/drive/u/2/folders/1ainskVe9Qw71BUXYq_QITDyYMH5iQ3jP]
 Shows live face detection and UI personalization when the special friend appears.
 
 
