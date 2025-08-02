@@ -1,4 +1,4 @@
-  MAGIC MIRROR
+     MAGIC MIRROR
 
 Basic Details
 
@@ -87,9 +87,19 @@ Screenshots
 
 ![Screenshot1](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093726.png) 
 
-![Screenshot2](https://github.com/mariadenny/MagicMirror/edit/master/README.md) 
+![Screenshot2](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093745.png) 
 
-![Screenshot3](https://github.com/mariadenny/MagicMirror/edit/master/README.md) 
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093806.png)
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093844.png)
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093854.png)
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093900.png)
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093909.png)
+
+![Screenshot3](https://github.com/mariadenny/MagicMirror/blob/master/screenshots/Screenshot%202025-08-02%20093934.png)
 
 
 
