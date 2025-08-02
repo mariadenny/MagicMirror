@@ -1,5 +1,5 @@
 flask
 tensorflow
 opencv-python
-numpy
+numpy==1.26.3
 Pillow
