@@ -1,25 +1,78 @@
-// Magic Mirror JavaScript
+// --- Image Capture & Prediction ---
+function sendImageToServer(blob) {
+    const formData = new FormData();
+    formData.append('image', blob, 'webcam.jpg');
+
+    fetch('/predict', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.redirected) {
+            window.location.href = response.url;
+        }
+    })
+    .catch(error => console.error('Error sending image:', error));
+}
+
+function captureAndSend(video) {
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob(sendImageToServer, 'image/jpeg');
+}
+
+// --- Camera Setup ---
+let captureInterval;
+
+async function startCamera() {
+    try {
+        const video = document.getElementById('video');
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+
+        // Start prediction loop every 5 seconds
+        if (captureInterval) clearInterval(captureInterval);
+        captureInterval = setInterval(() => {
+            captureAndSend(video);
+        }, 5000);
+
+        console.log('Camera started');
+    } catch (err) {
+        console.error('Camera access failed:', err);
+    }
+}
+
+function stopCamera() {
+    const video = document.getElementById('video');
+    if (video && video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+    }
+    if (captureInterval) clearInterval(captureInterval);
+}
+
+// --- Mode Switching ---
 let currentMode = 'intro';
 
-// Function to switch between modes
 function switchMode(mode) {
     document.body.className = mode;
     currentMode = mode;
-    
-    // Hide all mode-specific content
+
     const overlay = document.querySelector('.overlay');
     const mirrorFrame = document.querySelector('.mirror-frame');
     const trollContent = document.querySelector('.troll-content');
-    
-    // Show/hide elements based on mode
-    if (overlay) overlay.style.display = mode === 'intro' ? 'flex' : 'none';
-    if (mirrorFrame) mirrorFrame.style.display = mode === 'mirror' ? 'block' : 'none';
-    if (trollContent) trollContent.style.display = mode === 'troll' ? 'flex' : 'none';
-    
-    // Update background based on mode
+
+    overlay.style.display = mode === 'intro' ? 'flex' : 'none';
+    mirrorFrame.style.display = mode === 'mirror' ? 'block' : 'none';
+    trollContent.style.display = mode === 'troll' ? 'flex' : 'none';
+
     const background = document.getElementById('background');
     if (background) {
-        switch(mode) {
+        switch (mode) {
             case 'intro':
                 background.style.backgroundImage = "url('images/2.png')";
                 background.style.backgroundColor = '';
@@ -37,200 +90,103 @@ function switchMode(mode) {
                 break;
         }
     }
-}
 
-// Camera access for mirror mode
-async function startCamera() {
-    try {
-        const video = document.getElementById('video');
-        if (video) {
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { 
-                    width: { ideal: 640 },
-                    height: { ideal: 480 }
-                } 
-            });
-            video.srcObject = stream;
-            console.log('Camera started successfully');
-        }
-    } catch (err) {
-        console.log('Camera access denied or not available:', err);
-        // Show fallback message
-        const video = document.getElementById('video');
-        if (video) {
-            video.style.background = '#333';
-            video.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white; font-family: BaseNeue, Arial, sans-serif;">Camera not available</div>';
-        }
-    }
-}
+    // Camera control
+    if (mode === 'mirror') startCamera();
+    else stopCamera();
 
-// Stop camera
-function stopCamera() {
-    const video = document.getElementById('video');
-    if (video && video.srcObject) {
-        const tracks = video.srcObject.getTracks();
-        tracks.forEach(track => track.stop());
-        video.srcObject = null;
-    }
-}
-
-// Auto-progression through modes (for demo purposes)
-function startAutoProgression() {
-    // Stay on intro for 8 seconds
-    setTimeout(() => {
-        switchMode('mirror');
-        startCamera();
-    }, 8000);
-    
-    // Switch to troll mode after 15 seconds total
-    setTimeout(() => {
-        stopCamera();
-        switchMode('troll');
-        
-        // Animate the mass meter after switching
+    // Troll mode meter
+    if (mode === 'troll') {
         setTimeout(() => {
             const fill = document.querySelector('.fill');
-            if (fill) {
-                fill.style.width = '75%';
-            }
+            if (fill) fill.style.width = '75%';
         }, 1000);
-    }, 15000);
-    
-    // Loop back to intro after 25 seconds
+    } else {
+        const fill = document.querySelector('.fill');
+        if (fill) fill.style.width = '0%';
+    }
+}
+
+// --- Auto Progression ---
+function startAutoProgression() {
+    setTimeout(() => switchMode('mirror'), 8000);
+    setTimeout(() => switchMode('troll'), 15000);
     setTimeout(() => {
         switchMode('intro');
-        // Reset meter
-        const fill = document.querySelector('.fill');
-        if (fill) {
-            fill.style.width = '0%';
-        }
-        // Restart the cycle
         startAutoProgression();
     }, 25000);
 }
 
-// Manual controls for testing
-document.addEventListener('keydown', (e) => {
-    switch(e.key) {
-        case '1':
-            switchMode('intro');
-            stopCamera();
-            // Reset meter
-            const fill1 = document.querySelector('.fill');
-            if (fill1) fill1.style.width = '0%';
-            break;
-        case '2':
-            switchMode('mirror');
-            startCamera();
-            break;
-        case '3':
-            switchMode('troll');
-            stopCamera();
-            setTimeout(() => {
-                const fill3 = document.querySelector('.fill');
-                if (fill3) fill3.style.width = '75%';
-            }, 500);
-            break;
-        case 'r':
-        case 'R':
-            // Restart auto-progression
-            location.reload();
-            break;
-    }
+// --- Manual Controls ---
+document.addEventListener('keydown', e => {
+    if (e.key === '1') switchMode('intro');
+    if (e.key === '2') switchMode('mirror');
+    if (e.key === '3') switchMode('troll');
+    if (e.key.toLowerCase() === 'r') location.reload();
 });
 
-// Touch/click controls for mobile
+// --- Touch Controls ---
 let touchStartTime = 0;
+
 document.addEventListener('touchstart', () => {
     touchStartTime = Date.now();
 });
 
-document.addEventListener('touchend', (e) => {
-    const touchDuration = Date.now() - touchStartTime;
-    if (touchDuration < 500) { // Quick tap
-        switch(currentMode) {
-            case 'intro':
-                switchMode('mirror');
-                startCamera();
-                break;
-            case 'mirror':
-                switchMode('troll');
-                stopCamera();
-                setTimeout(() => {
-                    const fill = document.querySelector('.fill');
-                    if (fill) fill.style.width = '75%';
-                }, 500);
-                break;
-            case 'troll':
-                switchMode('intro');
-                const fill = document.querySelector('.fill');
-                if (fill) fill.style.width = '0%';
-                break;
-        }
+document.addEventListener('touchend', () => {
+    const duration = Date.now() - touchStartTime;
+    if (duration < 500) {
+        if (currentMode === 'intro') switchMode('mirror');
+        else if (currentMode === 'mirror') switchMode('troll');
+        else switchMode('intro');
     }
 });
 
-// Handle visibility change (when tab becomes inactive/active)
+// --- Visibility Handling ---
 document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-        // Pause animations when tab is not visible
-        const background = document.getElementById('background');
-        if (background) {
-            background.style.animationPlayState = 'paused';
-        }
-    } else {
-        // Resume animations when tab becomes visible
-        const background = document.getElementById('background');
-        if (background && currentMode !== 'troll') {
-            background.style.animationPlayState = 'running';
-        }
+    const background = document.getElementById('background');
+    if (background) {
+        background.style.animationPlayState = document.hidden ? 'paused' : 'running';
     }
 });
 
-// Font loading check
+// --- Font Check ---
 function checkFontsLoaded() {
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
-            console.log('Custom fonts loaded successfully');
+            console.log('Fonts loaded');
         });
     }
-    
-    // Fallback check after 3 seconds
+
     setTimeout(() => {
-        const testElement = document.createElement('div');
-        testElement.style.fontFamily = 'BaseNeue';
-        testElement.style.position = 'absolute';
-        testElement.style.visibility = 'hidden';
-        testElement.innerHTML = 'Test';
-        document.body.appendChild(testElement);
-        
-        const computedFont = getComputedStyle(testElement).fontFamily;
-        if (!computedFont.includes('BaseNeue')) {
-            console.warn('BaseNeue font may not have loaded properly');
+        const testEl = document.createElement('div');
+        testEl.style.fontFamily = 'BaseNeue';
+        testEl.style.position = 'absolute';
+        testEl.style.visibility = 'hidden';
+        testEl.textContent = 'Test';
+        document.body.appendChild(testEl);
+
+        const computed = getComputedStyle(testEl).fontFamily;
+        if (!computed.includes('BaseNeue')) {
+            console.warn('BaseNeue may not have loaded');
         }
-        
-        document.body.removeChild(testElement);
+        document.body.removeChild(testEl);
     }, 3000);
 }
 
-// Initialize when DOM is loaded
+// --- Init ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Magic Mirror initialized');
-    checkFontsLoaded();
-    
-    // Start auto-progression
-    startAutoProgression();
-    
-    // Ensure intro mode is active
     switchMode('intro');
+    checkFontsLoaded();
+    startAutoProgression();
+    console.log('Magic Mirror initialized');
 });
 
-// Handle errors
-window.addEventListener('error', (e) => {
-    console.error('Error occurred:', e.error);
+// --- Error Logging ---
+window.addEventListener('error', e => {
+    console.error('Global error:', e.error);
 });
 
-// Export functions for external use
+// --- Export (if needed globally) ---
 window.MagicMirror = {
     switchMode,
     startCamera,

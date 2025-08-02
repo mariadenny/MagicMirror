@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mirror Complains</title>
+  <link rel="stylesheet" href="mirror_complain.css">
+</head>
+<body>
+  <div class="complain-container">
+    <div class="message">"I'm tired, come back later."</div>
+  </div>
+
+  <div class="blackout-screen" id="blackout"></div>
+
+  <script>
+    function triggerBlackout() {
+      const blackout = document.getElementById("blackout");
+      blackout.classList.add("active");
+
+      setTimeout(() => {
+        blackout.classList.remove("active");
+        scheduleNextBlackout();
+      }, 5000);
+    }
+
+    function scheduleNextBlackout() {
+      const nextTime = Math.random() * (30000 - 10000) + 10000; // 10-30s
+      setTimeout(triggerBlackout, nextTime);
+    }
+
+    // Start initial timer
+    scheduleNextBlackout();
+  </script>
+</body>
+</html>

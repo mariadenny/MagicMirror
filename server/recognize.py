@@ -1,43 +1,23 @@
+# server/recognize.py
 import face_recognition
-import cv2
 
-# Load your friend's image and encode it
-known_image = face_recognition.load_image_file(r"C:\Users\maria\OneDrive\Desktop\useless\server\friend.jpeg")
-known_encoding = face_recognition.face_encodings(known_image)[0]
+def recognize_face(known_image_path, unknown_image_path):
+    try:
+        # Load and convert both images to RGB
+        known_image = face_recognition.load_image_file(known_image_path)
+        unknown_image = face_recognition.load_image_file(unknown_image_path)
 
-# Start webcam
-video_capture = cv2.VideoCapture(0)
+        known_encodings = face_recognition.face_encodings(known_image)
+        unknown_encodings = face_recognition.face_encodings(unknown_image)
 
-while True:
-    ret, frame = video_capture.read()
-    if not ret:
-        print("Camera error")
-        break
+        if not known_encodings or not unknown_encodings:
+            return "unknown"
 
-    # Resize frame for faster processing
-    small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-    rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
+        known_encoding = known_encodings[0]
+        unknown_encoding = unknown_encodings[0]
 
-    # Detect faces and get encodings
-    face_locations = face_recognition.face_locations(rgb_small_frame)
-    face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-
-    for face_encoding in face_encodings:
-        match = face_recognition.compare_faces([known_encoding], face_encoding)[0]
-
-        if match:
-            print("✅ Match found - Your Friend 👯‍♀️")
-            video_capture.release()
-            cv2.destroyAllWindows()
-            exit()
-        else:
-            print("❌ Not your friend")
-
-    cv2.imshow('Face Recognition', frame)
-
-    # Press 'q' to quit manually
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-video_capture.release()
-cv2.destroyAllWindows()
+        results = face_recognition.compare_faces([known_encoding], unknown_encoding)
+        return "friend" if results[0] else "unknown"
+    except Exception as e:
+        print("Recognition error:", e)
+        return "error"

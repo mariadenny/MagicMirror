@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Beautiful Boss - Snow White Princess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, 
+                #E8F4FD 0%, 
+                #1e0f1d 20%, 
+                #2c1932 40%, 
+                #40106f 60%, 
+                #5c0631 80%, 
+                #230728 100%);
+            position: relative;
+            animation: backgroundShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundShift {
+            0% {
+                background: linear-gradient(135deg, 
+                    #E8F4FD 0%, 
+                    #B3E5FC 25%, 
+                    #81D4FA 50%, 
+                    #FFCDD2 75%, 
+                    #F8BBD9 100%);
+            }
+            100% {
+                background: linear-gradient(135deg, 
+                    #493f4e 0%, 
+                    #a175a8 25%, 
+                    #6a41b4 50%, 
+                    #4a0437 75%, 
+                    #150317 100%);
+            }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(1rem, 2vw, 2rem);
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .rose-petal {
+            position: absolute;
+            width: clamp(15px, 2vw, 25px);
+            height: clamp(15px, 2vw, 25px);
+            background: radial-gradient(circle, #FF69B4, #FF1493);
+            border-radius: 50% 10px 50% 10px;
+            opacity: 0.7;
+            animation: petalFloat linear infinite;
+        }
+
+        @keyframes petalFloat {
+            0% {
+                transform: translateY(-100vh) rotate(0deg) translateX(0px);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(50vh) rotate(180deg) translateX(30px);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg) translateX(-30px);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: clamp(8px, 1.5vw, 15px);
+            height: clamp(8px, 1.5vw, 15px);
+            background: radial-gradient(circle, #2a2925, #2d162f);
+            border-radius: 50%;
+            animation: sparkleFloat linear infinite;
+        }
+
+        @keyframes sparkleFloat {
+            0% {
+                transform: translateY(-10px) scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: translateY(-50vh) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 5;
+            padding: 2rem;
+        }
+
+        /* Crown Animation */
+        .crown {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 2rem;
+            animation: crownFloat 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 20px #eea13b);
+        }
+
+        @keyframes crownFloat {
+            0% { transform: translateY(0px) rotate(-2deg); }
+            100% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        /* Main Title */
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, 
+                #16040d, #9c7de2, #9d76bf, #410a61, #351c37);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: titleGlow 3s ease-in-out infinite alternate,
+                       gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            line-height: 1.2;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: brightness(1) drop-shadow(0 0 10px #39055e); }
+            100% { filter: brightness(1.2) drop-shadow(0 0 30px #330434); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Decorative Frame */
+        .decorative-frame {
+            border: 5px solid;
+            border-image: linear-gradient(45deg, #21021b, #913dc5, #420575) 1;
+            border-radius: 30px;
+            padding: 3rem;
+            background: rgba(34, 1, 1, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 0 50px rgba(255, 215, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decorative-frame::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #1a0119, #38064c, #ad62dc, #7a0fdd);
+            border-radius: 32px;
+            z-index: -1;
+            animation: framePulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes framePulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.8rem);
+            color: #ffffff;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            animation: subtitleFade 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Princess Quote */
+        .princess-quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            color: #caadca;
+            text-align: center;
+            margin: 2rem 0;
+            font-style: italic;
+            opacity: 0;
+            animation: quoteAppear 1s ease-out 2s forwards;
+        }
+
+        @keyframes quoteAppear {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            border-radius: 50px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: musicPulse 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes musicPulse {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            color: #FF69B4;
+            font-size: clamp(1rem, 2vw, 2rem);
+            animation: heartFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes heartFloat {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-30px) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .decorative-frame {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .music-control {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.8rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .decorative-frame {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floatingElements"></div>
+    
+    <div class="music-control" id="musicControl" onclick="toggleMusic()">
+        🎵
+    </div>
+    
+    <div class="container">
+        <div class="crown">👑</div>
+        
+        <div class="decorative-frame">
+            <h1 class="main-title">My God My Beautiful Boss</h1>
+            <p class="subtitle">A Snow White Princess Among Us</p>
+            <p class="princess-quote">"Fairest of them all, with grace beyond compare"</p>
+        </div>
+    </div>
+
+    <span class="sr-only">Beautiful Snow White themed website celebrating an amazing boss</span>
+
+    <script>
+        let audioContext;
+        let isPlaying = false;
+        let musicNodes = [];
+
+        // Initialize floating elements
+        function createFloatingElement(type) {
+            const element = document.createElement('div');
+            element.className = type;
+            
+            if (type === 'snowflake') {
+                element.textContent = ['❄', '❅', '❆', '✦', '✧', '✨'][Math.floor(Math.random() * 6)];
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                element.style.animationDelay = Math.random() * 2 + 's';
+            } else if (type === 'rose-petal') {
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                element.style.animationDelay = Math.random() * 3 + 's';
+            } else if (type === 'sparkle') {
+                element.style.left = Math.random() * 100 + '%';
+                element.style.bottom = '0px';
+                element.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                element.style.animationDelay = Math.random() * 4 + 's';
+            } else if (type === 'heart') {
+                element.textContent = ['💖', '💝', '💕', '💗'][Math.floor(Math.random() * 4)];
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 2 + 's';
+            }
+            
+            return element;
+        }
+
+        function initializeFloatingElements() {
+            const container = document.getElementById('floatingElements');
+            
+            // Create snowflakes
+            for (let i = 0; i < 15; i++) {
+                container.appendChild(createFloatingElement('snowflake'));
+            }
+            
+            // Create rose petals
+            for (let i = 0; i < 8; i++) {
+                container.appendChild(createFloatingElement('rose-petal'));
+            }
+            
+            // Create sparkles
+            for (let i = 0; i < 12; i++) {
+                container.appendChild(createFloatingElement('sparkle'));
+            }
+            
+            // Create hearts
+            for (let i = 0; i < 6; i++) {
+                container.appendChild(createFloatingElement('heart'));
+            }
+        }
+
+        // Initialize Web Audio for beautiful music
+        function initAudio() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function createMelodyNote(frequency, startTime, duration, volume = 0.1) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            const filterNode = audioContext.createBiquadFilter();
+            
+            oscillator.connect(filterNode);
+            filterNode.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, startTime);
+            
+            filterNode.type = 'lowpass';
+            filterNode.frequency.setValueAtTime(2000, startTime);
+            filterNode.Q.setValueAtTime(1, startTime);
+            
+            gainNode.gain.setValueAtTime(0, startTime);
+            gainNode.gain.linearRampToValueAtTime(volume, startTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+            
+            oscillator.start(startTime);
+            oscillator.stop(startTime + duration);
+            
+            return { oscillator, gainNode };
+        }
+
+        function playBeautifulMelody() {
+            if (!audioContext || isPlaying) return;
+            
+            isPlaying = true;
+            const startTime = audioContext.currentTime;
+            
+            // Beautiful melody inspired by classical pieces (original composition)
+            const melody = [
+                // First phrase - ascending beauty
+                { note: 261.63, time: 0, duration: 0.8 },    // C4
+                { note: 293.66, time: 0.8, duration: 0.8 },  // D4
+                { note: 329.63, time: 1.6, duration: 0.8 },  // E4
+                { note: 392.00, time: 2.4, duration: 1.2 },  // G4
+                { note: 440.00, time: 3.6, duration: 1.6 },  // A4
+                
+                // Second phrase - graceful descent
+                { note: 523.25, time: 5.2, duration: 0.6 },  // C5
+                { note: 493.88, time: 5.8, duration: 0.6 },  // B4
+                { note: 440.00, time: 6.4, duration: 0.8 },  // A4
+                { note: 392.00, time: 7.2, duration: 1.0 },  // G4
+                { note: 329.63, time: 8.2, duration: 1.4 },  // E4
+                
+                // Third phrase - romantic flourish
+                { note: 392.00, time: 9.6, duration: 0.4 },  // G4
+                { note: 440.00, time: 10.0, duration: 0.4 }, // A4
+                { note: 493.88, time: 10.4, duration: 0.8 }, // B4
+                { note: 523.25, time: 11.2, duration: 1.2 }, // C5
+                { note: 587.33, time: 12.4, duration: 2.0 }, // D5
+            ];
+            
+            // Harmony notes
+            const harmony = [
+                { note: 196.00, time: 0, duration: 4.0 },    // G3
+                { note: 220.00, time: 4.0, duration: 4.0 },  // A3
+                { note: 246.94, time: 8.0, duration: 4.0 },  // B3
+                { note: 261.63, time: 12.0, duration: 2.4 }, // C4
+            ];
+            
+            // Play melody
+            melody.forEach(({ note, time, duration }) => {
+                createMelodyNote(note, startTime + time, duration, 0.08);
+            });
+            
+            // Play harmony (softer)
+            harmony.forEach(({ note, time, duration }) => {
+                createMelodyNote(note, startTime + time, duration, 0.04);
+            });
+            
+            // Add some sparkle with higher octaves
+            setTimeout(() => {
+                createMelodyNote(1046.50, startTime + 13, 1.0, 0.06); // C6
+                createMelodyNote(1174.66, startTime + 13.5, 0.5, 0.05); // D6
+                createMelodyNote(1318.51, startTime + 14, 1.5, 0.07); // E6
+            }, 13000);
+            
+            // Reset playing state after melody completes
+            setTimeout(() => {
+                isPlaying = false;
+            }, 16000);
+        }
+
+        function toggleMusic() {
+            const musicControl = document.getElementById('musicControl');
+            
+            if (!audioContext) {
+                initAudio();
+            }
+            
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
+            if (!isPlaying) {
+                playBeautifulMelody();
+                musicControl.classList.add('playing');
+                musicControl.textContent = '🎼';
+                
+                // Loop the melody
+                const melodyInterval = setInterval(() => {
+                    if (isPlaying) return;
+                    playBeautifulMelody();
+                }, 18000);
+                
+                // Stop after some time or on next click
+                musicControl.onclick = () => {
+                    clearInterval(melodyInterval);
+                    musicControl.classList.remove('playing');
+                    musicControl.textContent = '🎵';
+                    isPlaying = false;
+                    musicControl.onclick = toggleMusic;
+                };
+            }
+        }
+
+        // Auto-start music after a delay
+        setTimeout(() => {
+            if (!isPlaying) {
+                initAudio();
+                setTimeout(toggleMusic, 1000);
+            }
+        }, 2000);
+
+        // Add continuous floating elements
+        setInterval(() => {
+            const container = document.getElementById('floatingElements');
+            const elementTypes = ['snowflake', 'rose-petal', 'sparkle'];
+            const randomType = elementTypes[Math.floor(Math.random() * elementTypes.length)];
+            
+            const newElement = createFloatingElement(randomType);
+            container.appendChild(newElement);
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                if (newElement.parentNode) {
+                    newElement.remove();
+                }
+            }, 8000);
+            
+            // Limit total elements
+            if (container.children.length > 50) {
+                container.removeChild(container.firstChild);
+            }
+        }, 2000);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFloatingElements();
+            
+            // Add some random sparkle effects to the title
+            const title = document.querySelector('.main-title');
+            setInterval(() => {
+                title.style.filter = `brightness(${1 + Math.random() * 0.3}) drop-shadow(0 0 ${20 + Math.random() * 20}px #FFD700)`;
+            }, 3000);
+        });
+
+        // Handle visibility change
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && audioContext) {
+                audioContext.suspend();
+            } else if (!document.hidden && audioContext) {
+                audioContext.resume();
+            }
+        });
+    </script>
+</body>
+</html>

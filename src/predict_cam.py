@@ -1,3 +1,5 @@
+
+from xml.parsers.expat import model
 import cv2
 import numpy as np
 import tensorflow as tf
@@ -99,6 +101,13 @@ class FriendClassifier:
         except Exception as e:
             print(f"Error during prediction: {e}")
             return None, None, None
+
+def save_model(self, filepath):
+    try:
+        tf.keras.models.save_model(self.model, filepath)
+        print(f"Model saved to {filepath}")
+    except Exception as e:
+        print(f"Failed to save model: {e}")
 
 def main():
     # Configuration
@@ -210,3 +219,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+model.save("model.h5")  # Removed: 'model' is not defined in this script

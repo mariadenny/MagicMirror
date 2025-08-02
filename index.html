@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Mirror</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magic Mirror</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- TensorFlow & face-api.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body class="intro">
-    <div id="background"></div>
-    
-    <div class="overlay">
-        <h1 class="title">HELLO GUYS</h1>
-        <p class="ready">Are you ready?</p>
-    </div>
+  <!-- Background -->
+  <div id="background"></div>
 
-    <!-- Mirror mode (hidden by default) -->
-    <div class="mirror-frame" style="display: none;">
-        <video id="video" autoplay muted></video>
-    </div>
+  <!-- Intro Text -->
+  <div class="overlay">
+    <h1 class="title">HELLO GUYS</h1>
+    <p class="ready">Are you ready?</p>
+  </div>
 
-    <!-- Troll mode (hidden by default) -->
-    <div class="troll-content" style="display: none;">
-        <div class="meter-label">MASS METER</div>
-        <div class="meter-bar">
-            <div class="fill" style="width: 0%"></div>
-        </div>
-    </div>
+  <div class="mirror-frame" style="display: none;">
+    <video id="video" width="640" height="480" autoplay muted playsinline></video>
+    <canvas id="overlay" width="640" height="480"></canvas>
+  </div>
+  
+  <!-- Complain Screen -->
+  <div class="complain-screen" style="display: none;">
+    <div class="message">"I'm tired, come back later."</div>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Mirror Section (hidden by default) -->
+  
+
+  <!-- Troll Section (hidden by default) -->
+  <div class="troll-content" style="display: none;">
+    <div class="meter-label">MASS METER</div>
+    <div class="meter-bar"><div class="fill" style="width: 0%"></div></div>
+  </div>
 </body>
 </html>

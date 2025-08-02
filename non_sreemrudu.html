@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALERT - User Not Sreemrudu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Basis+Grotesque+Mono:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Basis Grotesque Mono', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #FF0000;
+            animation: flashBackground 0.5s infinite alternate;
+            cursor: none;
+        }
+
+        @keyframes flashBackground {
+            0% { background: #FF0000; }
+            10% { background: #FF00FF; }
+            20% { background: #00FFFF; }
+            30% { background: #FFFF00; }
+            40% { background: #00FF00; }
+            50% { background: #FF4500; }
+            60% { background: #8A2BE2; }
+            70% { background: #FF1493; }
+            80% { background: #00FF7F; }
+            90% { background: #FFD700; }
+            100% { background: #FF6347; }
+        }
+
+        .alert-container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            animation: shake 0.3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-10px, 5px) rotate(-2deg); }
+            20% { transform: translate(10px, -5px) rotate(2deg); }
+            30% { transform: translate(-8px, 8px) rotate(-1deg); }
+            40% { transform: translate(8px, -8px) rotate(1deg); }
+            50% { transform: translate(-5px, 10px) rotate(-2deg); }
+            60% { transform: translate(5px, -10px) rotate(2deg); }
+            70% { transform: translate(-3px, 3px) rotate(-1deg); }
+            80% { transform: translate(3px, -3px) rotate(1deg); }
+            90% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+        }
+
+        .alert-text {
+            font-size: clamp(2rem, 8vw, 8rem);
+            font-weight: 900;
+            color: #FFFFFF;
+            text-shadow: 
+                0 0 10px #FF0000,
+                0 0 20px #FF0000,
+                0 0 30px #FF0000,
+                0 0 40px #FF0000,
+                5px 5px 0px #000000,
+                -5px -5px 0px #000000,
+                5px -5px 0px #000000,
+                -5px 5px 0px #000000;
+            animation: textFlash 0.2s infinite alternate;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes textFlash {
+            0% { 
+                color: #FFFFFF;
+                text-shadow: 
+                    0 0 10px #FF0000,
+                    0 0 20px #FF0000,
+                    0 0 30px #FF0000,
+                    0 0 40px #FF0000,
+                    5px 5px 0px #000000,
+                    -5px -5px 0px #000000,
+                    5px -5px 0px #000000,
+                    -5px 5px 0px #000000;
+            }
+            25% { 
+                color: #FFFF00;
+                text-shadow: 
+                    0 0 15px #FFFF00,
+                    0 0 25px #FFFF00,
+                    0 0 35px #FFFF00,
+                    0 0 45px #FFFF00,
+                    3px 3px 0px #FF0000,
+                    -3px -3px 0px #FF0000,
+                    3px -3px 0px #FF0000,
+                    -3px 3px 0px #FF0000;
+            }
+            50% { 
+                color: #00FFFF;
+                text-shadow: 
+                    0 0 20px #00FFFF,
+                    0 0 30px #00FFFF,
+                    0 0 40px #00FFFF,
+                    0 0 50px #00FFFF,
+                    4px 4px 0px #FF00FF,
+                    -4px -4px 0px #FF00FF,
+                    4px -4px 0px #FF00FF,
+                    -4px 4px 0px #FF00FF;
+            }
+            75% { 
+                color: #FF00FF;
+                text-shadow: 
+                    0 0 25px #FF00FF,
+                    0 0 35px #FF00FF,
+                    0 0 45px #FF00FF,
+                    0 0 55px #FF00FF,
+                    6px 6px 0px #00FF00,
+                    -6px -6px 0px #00FF00,
+                    6px -6px 0px #00FF00,
+                    -6px 6px 0px #00FF00;
+            }
+            100% { 
+                color: #00FF00;
+                text-shadow: 
+                    0 0 30px #00FF00,
+                    0 0 40px #00FF00,
+                    0 0 50px #00FF00,
+                    0 0 60px #00FF00,
+                    7px 7px 0px #FF4500,
+                    -7px -7px 0px #FF4500,
+                    7px -7px 0px #FF4500,
+                    -7px 7px 0px #FF4500;
+            }
+        }
+
+        .warning-symbols {
+            font-size: clamp(1.5rem, 6vw, 4rem);
+            margin: 2rem 0;
+            animation: symbolSpin 1s linear infinite;
+        }
+
+        @keyframes symbolSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .sub-text {
+            font-size: clamp(1rem, 4vw, 2rem);
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 
+                0 0 5px #FF0000,
+                0 0 10px #FF0000,
+                0 0 15px #FF0000,
+                2px 2px 0px #000000,
+                -2px -2px 0px #000000;
+            animation: subTextPulse 0.8s ease-in-out infinite alternate;
+            margin-top: 1rem;
+        }
+
+        @keyframes subTextPulse {
+            0% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% { 
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .strobe-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 30%, rgba(255,255,255,0.3) 70%);
+            animation: strobe 0.1s infinite;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes strobe {
+            0%, 50% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+        }
+
+        .scan-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.1) 2px,
+                rgba(0, 255, 0, 0.1) 4px
+            );
+            animation: scanMove 0.1s linear infinite;
+            z-index: 7;
+            pointer-events: none;
+        }
+
+        @keyframes scanMove {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(4px); }
+        }
+
+        .glitch-bars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, 
+                    transparent 0%, 
+                    rgba(255,0,255,0.8) 2%, 
+                    transparent 4%,
+                    transparent 10%,
+                    rgba(0,255,255,0.8) 12%,
+                    transparent 14%,
+                    transparent 20%,
+                    rgba(255,255,0,0.8) 22%,
+                    transparent 24%
+                );
+            animation: glitchMove 0.3s linear infinite;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        @keyframes glitchMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .corner-alerts {
+            position: fixed;
+            font-size: clamp(1rem, 3vw, 2rem);
+            font-weight: 900;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px #FF0000;
+            z-index: 8;
+            animation: cornerFlash 0.4s infinite alternate;
+        }
+
+        .corner-alerts.top-left {
+            top: 2rem;
+            left: 2rem;
+        }
+
+        .corner-alerts.top-right {
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .corner-alerts.bottom-left {
+            bottom: 2rem;
+            left: 2rem;
+        }
+
+        .corner-alerts.bottom-right {
+            bottom: 2rem;
+            right: 2rem;
+        }
+
+        @keyframes cornerFlash {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .audio-visualizer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        .audio-bar {
+            width: 20px;
+            background: linear-gradient(to top, #FF0000, #FFFF00, #00FF00);
+            border-radius: 10px 10px 0 0;
+            animation: audioJump 0.2s infinite;
+        }
+
+        .audio-bar:nth-child(1) { animation-delay: 0s; }
+        .audio-bar:nth-child(2) { animation-delay: 0.1s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.05s; }
+        .audio-bar:nth-child(4) { animation-delay: 0.15s; }
+        .audio-bar:nth-child(5) { animation-delay: 0.08s; }
+        .audio-bar:nth-child(6) { animation-delay: 0.12s; }
+        .audio-bar:nth-child(7) { animation-delay: 0.03s; }
+        .audio-bar:nth-child(8) { animation-delay: 0.18s; }
+
+        @keyframes audioJump {
+            0%, 100% { height: 20px; }
+            50% { height: 80px; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .alert-text {
+                line-height: 1.1;
+                margin-bottom: 1rem;
+            }
+            
+            .corner-alerts {
+                font-size: clamp(0.8rem, 4vw, 1.5rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .corner-alerts.top-left,
+            .corner-alerts.bottom-left {
+                left: 1rem;
+            }
+            
+            .corner-alerts.top-right,
+            .corner-alerts.bottom-right {
+                right: 1rem;
+            }
+            
+            .corner-alerts.top-left,
+            .corner-alerts.top-right {
+                top: 1rem;
+            }
+            
+            .corner-alerts.bottom-left,
+            .corner-alerts.bottom-right {
+                bottom: 1rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            body, .alert-container, .alert-text, .warning-symbols,
+            .sub-text, .strobe-overlay, .scan-lines, .glitch-bars,
+            .corner-alerts, .audio-bar {
+                animation: none;
+            }
+            
+            body {
+                background: #FF0000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="strobe-overlay"></div>
+    <div class="scan-lines"></div>
+    <div class="glitch-bars"></div>
+    
+    <div class="corner-alerts top-left">⚠️ ALERT</div>
+    <div class="corner-alerts top-right">ALERT ⚠️</div>
+    <div class="corner-alerts bottom-left">🚨 ERROR</div>
+    <div class="corner-alerts bottom-right">ERROR 🚨</div>
+    
+    <div class="alert-container">
+        <div class="alert-text">THE USER IS NOT SREEMRUDU</div>
+        <div class="warning-symbols">🚨 ⚠️ 🔴 ❌ 💀 ❗ 🚫 ⛔</div>
+        <div class="sub-text">ACCESS DENIED - INTRUDER DETECTED</div>
+    </div>
+    
+    <div class="audio-visualizer">
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+        <div class="audio-bar"></div>
+    </div>
+
+    <script>
+        // Create multiple alarm sounds using Web Audio API
+        let audioContext;
+        let alarmSound1, alarmSound2, alarmSound3;
+        let isPlaying = false;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function createAlarmSound(frequency, duration, type = 'square') {
+            if (!audioContext) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            
+            // Create alarm pattern
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+            
+            return oscillator;
+        }
+
+        function playAlarmSequence() {
+            if (!audioContext || isPlaying) return;
+            
+            isPlaying = true;
+            
+            // Play multiple alarm tones
+            setTimeout(() => createAlarmSound(800, 0.3, 'square'), 0);
+            setTimeout(() => createAlarmSound(600, 0.3, 'square'), 150);
+            setTimeout(() => createAlarmSound(1000, 0.3, 'sawtooth'), 300);
+            setTimeout(() => createAlarmSound(400, 0.3, 'triangle'), 450);
+            setTimeout(() => createAlarmSound(1200, 0.4, 'square'), 600);
+            
+            // Continuous siren effect
+            setTimeout(() => {
+                if (audioContext) {
+                    const siren = audioContext.createOscillator();
+                    const sirenGain = audioContext.createGain();
+                    
+                    siren.connect(sirenGain);
+                    sirenGain.connect(audioContext.destination);
+                    
+                    siren.type = 'sawtooth';
+                    sirenGain.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    
+                    // Create siren sweep
+                    siren.frequency.setValueAtTime(200, audioContext.currentTime);
+                    siren.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.5);
+                    siren.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 1);
+                    
+                    siren.start(audioContext.currentTime);
+                    siren.stop(audioContext.currentTime + 1);
+                }
+            }, 800);
+            
+            setTimeout(() => {
+                isPlaying = false;
+            }, 2000);
+        }
+
+        // Start audio on first user interaction
+        function startAudio() {
+            initAudio();
+            playAlarmSequence();
+            
+            // Continue playing alarms every 2 seconds
+            setInterval(() => {
+                if (audioContext && audioContext.state === 'running') {
+                    playAlarmSequence();
+                }
+            }, 2000);
+        }
+
+        // Auto-start audio (modern browsers may require user interaction)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Try to start immediately
+            setTimeout(startAudio, 100);
+            
+            // Also start on any click/touch
+            document.addEventListener('click', startAudio, { once: true });
+            document.addEventListener('touchstart', startAudio, { once: true });
+            document.addEventListener('keydown', startAudio, { once: true });
+        });
+
+        // Add random glitch effects
+        function addRandomGlitch() {
+            const glitchTexts = [
+                'SYSTEM BREACH DETECTED',
+                'UNAUTHORIZED ACCESS',
+                'SECURITY VIOLATION',
+                'FACIAL RECOGNITION FAILED',
+                'SREEMRUDU VERIFICATION ERROR',
+                'IDENTITY MISMATCH CRITICAL'
+            ];
+            
+            if (Math.random() < 0.3) {
+                const alertContainer = document.querySelector('.alert-container');
+                const originalText = alertContainer.innerHTML;
+                
+                // Brief glitch text change
+                setTimeout(() => {
+                    const glitchDiv = document.createElement('div');
+                    glitchDiv.className = 'alert-text';
+                    glitchDiv.textContent = glitchTexts[Math.floor(Math.random() * glitchTexts.length)];
+                    glitchDiv.style.color = '#00FF00';
+                    glitchDiv.style.fontSize = 'clamp(1rem, 6vw, 4rem)';
+                    
+                    alertContainer.innerHTML = '';
+                    alertContainer.appendChild(glitchDiv);
+                    
+                    setTimeout(() => {
+                        alertContainer.innerHTML = originalText;
+                    }, 200);
+                }, Math.random() * 3000);
+            }
+        }
+
+        // Random glitch effects
+        setInterval(addRandomGlitch, 2000);
+
+        // Screen shake on spacebar
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                document.body.style.animation = 'none';
+                document.body.offsetHeight; // Trigger reflow
+                document.body.style.animation = 'flashBackground 0.1s infinite alternate';
+                
+                setTimeout(() => {
+                    document.body.style.animation = 'flashBackground 0.5s infinite alternate';
+                }, 1000);
+            }
+        });
+
+        // Add cursor tracking for extra paranoia effect
+        let lastMouseMove = Date.now();
+        document.addEventListener('mousemove', (e) => {
+            lastMouseMove = Date.now();
+            
+            // Create trailing effect
+            if (Math.random() < 0.1) {
+                const trail = document.createElement('div');
+                trail.style.position = 'fixed';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                trail.style.width = '10px';
+                trail.style.height = '10px';
+                trail.style.background = '#FF0000';
+                trail.style.borderRadius = '50%';
+                trail.style.pointerEvents = 'none';
+                trail.style.zIndex = '15';
+                trail.style.animation = 'trailFade 0.5s ease-out forwards';
+                
+                document.body.appendChild(trail);
+                
+                setTimeout(() => trail.remove(), 500);
+            }
+        });
+
+        // Add trail fade animation
+        const trailStyle = document.createElement('style');
+        trailStyle.textContent = `
+            @keyframes trailFade {
+                0% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0; transform: scale(0); }
+            }
+        `;
+        document.head.appendChild(trailStyle);
+
+        // Prevent page from being closed easily
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            e.returnValue = 'ALERT: Unauthorized user detected. System lockdown in progress.';
+            return 'ALERT: Unauthorized user detected. System lockdown in progress.';
+        });
+
+        // Text-to-speech announcement
+        if ('speechSynthesis' in window) {
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(
+                    'Alert! Alert! Unauthorized user detected. The user is not Sreemrudu. Access denied. Security breach in progress.'
+                );
+                utterance.rate = 1.2;
+                utterance.pitch = 0.8;
+                utterance.volume = 0.8;
+                speechSynthesis.speak(utterance);
+                
+                // Repeat every 10 seconds
+                setInterval(() => {
+                    if (!speechSynthesis.speaking) {
+                        const repeatUtterance = new SpeechSynthesisUtterance(
+                            'System alert: Intruder detected. You are not Sreemrudu. Please leave immediately.'
+                        );
+                        repeatUtterance.rate = 1.1;
+                        repeatUtterance.pitch = 0.7;
+                        speechSynthesis.speak(repeatUtterance);
+                    }
+                }, 10000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
