@@ -1,0 +1,2 @@
+0 friend
+1 not_friend
