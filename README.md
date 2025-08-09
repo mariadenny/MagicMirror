@@ -2,7 +2,7 @@
 
 Basic Details
 
-Team Name: Ctrl+Alt+Elite
+Team Name: Cotton Candy
 
 Team Members
 
